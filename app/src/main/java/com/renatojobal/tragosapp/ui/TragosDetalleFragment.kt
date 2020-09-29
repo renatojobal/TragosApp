@@ -6,15 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.renatojobal.tragosapp.R
-
-
+import com.renatojobal.tragosapp.data.model.Drink
 
 
 class TragosDetalleFragment : Fragment() {
 
+    private lateinit var drink : Drink
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requireArguments().let {
+            drink = it.getParcelable<Drink>("drink")!!
+        }
 
     }
 
