@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -46,6 +47,12 @@ class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+        setupSearchView()
+        setupObservers()
+
+    }
+
+    private fun setupObservers(){
         viewModel.fetchTragosList.observe(viewLifecycleOwner,   Observer {result ->
             when(result){
                 is Resource.Loading -> {
@@ -61,7 +68,20 @@ class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
                 }
             }
         })
+    }
 
+    private fun setupSearchView(){
+        searchView.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                viewModel.setTrago(p0!!)
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false;
+            }
+
+        })
     }
 
     private fun setupRecyclerView(){
@@ -73,7 +93,7 @@ class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
         // Navigate to detailed drink
         val bundle = Bundle()
         bundle.putParcelable("drink", drink)
-        findNavController().navigate(R.id.tragosDetalleFragment, bundle)
+        findNavController().navigate(R.id.action_mainFragment_to_tragosDetalleFragment, bundle)
     }
 
 
