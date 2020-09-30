@@ -17,7 +17,7 @@ private val itemClickListener: OnTragoClickListener) :
 
 
     interface OnTragoClickListener{
-        fun onTragoClick(drink: Drink)
+        fun onTragoClick(drink: Drink, position: Int)
     }
 
 
@@ -43,7 +43,7 @@ private val itemClickListener: OnTragoClickListener) :
             itemView.txt_titulo.text = item.nombre
             itemView.txt_descripcion.text = item.descripcion
 
-            itemView.setOnClickListener{ itemClickListener.onTragoClick(item)}
+            itemView.setOnClickListener{ itemClickListener.onTragoClick(item, position)}
         }
 
     }

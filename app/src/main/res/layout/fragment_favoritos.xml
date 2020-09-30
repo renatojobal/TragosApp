@@ -3,24 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.MainFragment">
-
-    <Button
-        android:id="@+id/btn_ir_favoritos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ir a favoritos" />
-
-
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    tools:context=".ui.FavoritosFragment">
 
     <RelativeLayout
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarFavoritos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
@@ -33,7 +20,7 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTragos"
+        android:id="@+id/rvTragosFavoritos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="8dp" />

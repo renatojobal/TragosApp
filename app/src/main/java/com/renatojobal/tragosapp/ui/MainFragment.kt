@@ -13,9 +13,10 @@ import androidx.navigation.fragment.findNavController
 
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.renatojobal.tragosapp.AppDatabase
 
 import com.renatojobal.tragosapp.R
-import com.renatojobal.tragosapp.data.DataSource
+import com.renatojobal.tragosapp.data.DataSourceImpl
 import com.renatojobal.tragosapp.data.model.Drink
 import com.renatojobal.tragosapp.domain.RepoImpl
 import com.renatojobal.tragosapp.ui.viewmodel.MainViewModel
@@ -27,7 +28,9 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
 
-    private val viewModel by viewModels<MainViewModel>{ VMFactory(RepoImpl(DataSource()))}
+    private val viewModel by viewModels<MainViewModel>{ VMFactory(RepoImpl(DataSourceImpl(
+        AppDatabase.getDatabase(requireActivity().applicationContext)
+    )))}
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +52,7 @@ class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
         setupRecyclerView()
         setupSearchView()
         setupObservers()
+        setupFavortiosButton()
 
     }
 
@@ -89,11 +93,18 @@ class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
         rvTragos.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
-    override fun onTragoClick(drink: Drink) {
+    override fun onTragoClick(drink: Drink, position: Int) {
         // Navigate to detailed drink
         val bundle = Bundle()
         bundle.putParcelable("drink", drink)
         findNavController().navigate(R.id.action_mainFragment_to_tragosDetalleFragment, bundle)
+    }
+
+    private fun setupFavortiosButton(){
+        btn_ir_favoritos.setOnClickListener{
+            findNavController().navigate(R.id.action_mainFragment_to_favoritosFragment)
+        }
+
     }
 
 
