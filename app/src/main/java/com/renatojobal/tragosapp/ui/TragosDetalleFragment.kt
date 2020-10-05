@@ -14,16 +14,15 @@ import com.renatojobal.tragosapp.data.DataSourceImpl
 import com.renatojobal.tragosapp.data.model.Drink
 import com.renatojobal.tragosapp.domain.RepoImpl
 import com.renatojobal.tragosapp.ui.viewmodel.MainViewModel
-import com.renatojobal.tragosapp.ui.viewmodel.VMFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_tragos_detalle.*
 
-
+@AndroidEntryPoint
 class TragosDetalleFragment : Fragment() {
 
     private lateinit var drink : Drink
 
-    private val viewModel by viewModels<MainViewModel>{ VMFactory(
-        RepoImpl(DataSourceImpl(AppDatabase.getDatabase(requireActivity().applicationContext)))) }
+    private val viewModel by viewModels<MainViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

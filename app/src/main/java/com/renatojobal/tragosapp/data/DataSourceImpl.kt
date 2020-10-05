@@ -3,25 +3,28 @@ package com.renatojobal.tragosapp.data
 import com.renatojobal.tragosapp.AppDatabase
 import com.renatojobal.tragosapp.data.model.Drink
 import com.renatojobal.tragosapp.domain.DataSource
+import com.renatojobal.tragosapp.domain.TragosDao
 import com.renatojobal.tragosapp.vo.Resource
 import com.renatojobal.tragosapp.vo.RetrofitClient
+import javax.inject.Inject
 
-class DataSourceImpl(private val appDatabase: AppDatabase) :DataSource {
+class DataSourceImpl @Inject constructor(private val tragoDao: TragosDao) :DataSource {
+
 
     override suspend fun getTragoBYName(tragoName: String): Resource<List<Drink>>{
         return Resource.Success(RetrofitClient.webservice.getTragoByName(tragoName).drinkList)
     }
 
     override suspend fun insertTragoIntoRoom(trago: Drink){
-        appDatabase.tragoDao().insertFavorite(trago)
+        tragoDao.insertFavorite(trago)
     }
 
     override suspend fun getTragosFromRoom(): Resource<List<Drink>> {
-        return Resource.Success(appDatabase.tragoDao().getAllFavoriteDrinks())
+        return Resource.Success(tragoDao.getAllFavoriteDrinks())
     }
 
     override suspend fun deleteDrink(drink: Drink) {
-        appDatabase.tragoDao().deleteDrink(drink)
+        tragoDao.deleteDrink(drink)
     }
 
 

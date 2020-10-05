@@ -1,6 +1,7 @@
 package com.renatojobal.tragosapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +16,12 @@ import com.renatojobal.tragosapp.R
 import com.renatojobal.tragosapp.data.DataSourceImpl
 import com.renatojobal.tragosapp.data.model.Drink
 import com.renatojobal.tragosapp.domain.RepoImpl
+import com.renatojobal.tragosapp.domain.TragosDao
 import com.renatojobal.tragosapp.ui.viewmodel.MainViewModel
-import com.renatojobal.tragosapp.ui.viewmodel.VMFactory
 import com.renatojobal.tragosapp.vo.Resource
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favoritos.*
+import javax.inject.Inject
 
 
 /**
@@ -26,17 +29,11 @@ import kotlinx.android.synthetic.main.fragment_favoritos.*
  * Use the [FavoritosFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class FavoritosFragment : Fragment() {
 
-    private val viewModel by viewModels<MainViewModel> {
-        VMFactory(
-            RepoImpl(
-                DataSourceImpl(
-                    AppDatabase.getDatabase(requireActivity().applicationContext)
-                )
-            )
-        )
-    }
+
+    private val viewModel by viewModels<MainViewModel>()
 
 
     override fun onCreateView(
@@ -77,6 +74,7 @@ class FavoritosFragment : Fragment() {
                 }
             }
         })
+
 
     }
 

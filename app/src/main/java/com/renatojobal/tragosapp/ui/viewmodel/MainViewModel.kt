@@ -1,5 +1,6 @@
 package com.renatojobal.tragosapp.ui.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.renatojobal.tragosapp.data.model.Drink
 import com.renatojobal.tragosapp.domain.Repo
@@ -7,8 +8,9 @@ import com.renatojobal.tragosapp.vo.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class MainViewModel(private val repo:Repo):ViewModel() {
+class MainViewModel @ViewModelInject constructor (private val repo:Repo):ViewModel() {
 
     private val tragosData = MutableLiveData<String>()
 

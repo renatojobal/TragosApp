@@ -12,23 +12,6 @@ abstract class AppDatabase : RoomDatabase(){
 
     abstract fun tragoDao() : TragosDao
 
-    companion object{
 
-        private var INSTANCE : AppDatabase? = null
-
-        fun getDatabase(context: Context) : AppDatabase {
-
-            INSTANCE = INSTANCE ?: Room
-                .databaseBuilder(context.applicationContext, AppDatabase::class.java, "tragosdb")
-                .build()
-
-            return INSTANCE!!
-        }
-
-        fun destroyInstance(){
-            INSTANCE = null
-        }
-
-    }
 
 }
